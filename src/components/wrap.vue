@@ -1,6 +1,8 @@
 <template>
   <div class="wrap">
-    <slot></slot>
+    <div class="son-wrap">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -35,5 +37,12 @@
     padding: 14px;
     min-width: 990px;
     width: 100%;
+    height : 100%;
+    .son-wrap{
+      position : relative;
+      padding-top : 106px;
+      width : 100%;
+      height : 100%;
+    }
 }
 </style>

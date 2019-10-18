@@ -85,6 +85,10 @@
 </script>
 <style lang='scss' scoped>
 .sreach-box{    
+    position : absolute;
+    top : 50px;
+    left : 0;
+    width : 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;

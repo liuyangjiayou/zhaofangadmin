@@ -37,6 +37,11 @@
 </script>
 <style lang='scss' scoped>
 .title{
+    position : absolute;
+    width : 100%;
+    height : 50px;
+    top: 0;
+    left : 0;
     display: flex;
     align-items: center;
     padding-left: 19px;

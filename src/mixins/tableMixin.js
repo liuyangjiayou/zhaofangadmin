@@ -1,4 +1,14 @@
 let bable_fun = {
+    data(){
+        return {
+            tableHieght : document.documentElement.clientHeight - 253,
+        }
+    },
+    mounted(){
+        window.onresize = function(){
+            this.tableHieght = document.documentElement.clientHeight - 253;
+        }
+    },
     methods : {
         /* 所有表单删除的方法 */
         tabelConfirm(opts){

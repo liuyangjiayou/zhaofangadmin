@@ -6,7 +6,8 @@
         <el-table 
         style="width: 100%"
         size="mini"
-        height="566"
+        :height="tableHieght"
+        ref="table"
         v-loading="loading"
         element-loading-text="拼命加载中"
         element-loading-spinner="el-icon-loading"
@@ -20,7 +21,7 @@
            width="55"
           label="编号">
             <template slot-scope="scope">
-              <span>{{ scope.row.number }}</span>
+              <span>{{ scope.row.number}}</span>
             </template>
           </el-table-column>
           <el-table-column 
