@@ -41,7 +41,7 @@
           <el-table-column 
           width="80px"
           label="小区相册">
-              <template slot-scope="scope">
+              <template>
                 <el-button type="text" @click="dialogImagVisible = true">[0]</el-button>
               </template>
           </el-table-column>
