@@ -9,12 +9,12 @@
         <el-form ref="logForm" style="width:380px" :model="formData" :rules="rules" class="login-form">
           <div class="title">欢迎使用</div>
           <el-form-item prop="username">
-            <el-input v-model="formData.username" placeholder="请输入系统账号"></el-input>
+            <el-input @keyup.enter.native="submit('logForm')" v-model="formData.username" placeholder="请输入系统账号"></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input type="password" v-model="formData.password" placeholder="请输入登录密码"></el-input>
+            <el-input type="password" @keyup.enter.native="submit('logForm')" v-model="formData.password" placeholder="请输入登录密码"></el-input>
           </el-form-item>
-          <el-button type="primary" @click="submit('logForm')" style="width:100%">登录</el-button>
+          <el-button type="primary"  @click="submit('logForm')" style="width:100%">登录</el-button>
         </el-form>
       </div>
     </div>
@@ -26,6 +26,7 @@
 
 <script>
   import { post } from '../api/api';
+  import { mapActions } from 'vuex'
   export default {
     name:'',
     props:[''],
@@ -59,22 +60,27 @@
 
     methods: {
       submit(formName){
-        this.$refs[formName].validate((valid)=>{
+        let that = this;
+        that.$refs[formName].validate((valid)=>{
           if(valid){
-            post('/api/login/sign',this.formData).then((res)=>{
-              if(res.errcode == 0){
-                let uid = res.data.user_id;
-                localStorage.setItem('zfUid',uid);
-                this.$message({
-                  type : res.errcode == 0 ? 'success' : 'error',
+            post('/api/login',that.formData).then((res)=>{
+              if(res.code == 0){
+                that.$message({
+                  type : 'error',
+                  message : res.msg,
+                  duration : 2000,
+                });
+               return false; 
+              }
+              that.$message({
+                  type : 'success',
                   message : res.msg,
                   duration : 2000,
                   onClose : dom => {
-                    this.$router.push('/home')
+                    localStorage.setItem('routerRoles',JSON.stringify(res.roles));
+                    that.$router.push('/home');
                   }
-                });
-                
-              }
+              });
             });
           }else{  
             console.log(valid)

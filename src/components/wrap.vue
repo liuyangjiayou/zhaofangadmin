@@ -22,7 +22,7 @@
     computed: {},
 
     beforeMount() {},
-
+ 
     mounted() {},
 
     methods: {},

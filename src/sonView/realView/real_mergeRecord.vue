@@ -76,6 +76,7 @@
   import {bable_fun} from '../../mixins/tableMixin';
   import TableTitle from '../../components/TableTitle';
   import TableSreach from '../../components/TableSreach';
+  import {post} from '../../api/api'
   export default {
     name:'mergeRecord',
     props:[''],
@@ -96,7 +97,6 @@
           ],
           keyWord : '',
         },
-        loading : false,
         currentPage3: 5,
         selectID : '1',
         options: [{
@@ -111,58 +111,7 @@
             sreach: '合并前名称',
             keyWord : '',
         },
-       tableData: [{
-          number: '1',
-          mergeBefore: '烟酒宿舍市庄路296号',
-          mergeLater: '上海市普陀区金沙江路 1518 弄',
-          date : '2018-09-30 14:16',
-
-        }, {
-          number: '2',
-          mergeBefore: '烟酒宿舍市庄路296号',
-          mergeLater: '上海市普陀区金沙江路 1518 弄',
-          date : '2018-09-30 14:16',
-        }, {
-          number: '3',
-          mergeBefore: '烟酒宿舍市庄路296号',
-          mergeLater: '上海市普陀区金沙江路 1518 弄',
-          date : '2018-09-30 14:16',
-        }, {
-          number: '4',
-          mergeBefore: '烟酒宿舍市庄路296号',
-          mergeLater: '上海市普陀区金沙江路 1518 弄',
-          date : '2018-09-30 14:16',
-        }, {
-          number: '5',
-          mergeBefore: '烟酒宿舍市庄路296号',
-          mergeLater: '上海市普陀区金沙江路 1518 弄',
-          date : '2018-09-30 14:16',
-        }, {
-          number: '6',
-          mergeBefore: '烟酒宿舍市庄路296号',
-          mergeLater: '上海市普陀区金沙江路 1518 弄',
-          date : '2018-09-30 14:16',
-        }, {
-          number: '7',
-          mergeBefore: '烟酒宿舍市庄路296号',
-          mergeLater: '上海市普陀区金沙江路 1518 弄',
-          date : '2018-09-30 14:16',
-        }, {
-          number: '8',
-          mergeBefore: '烟酒宿舍市庄路296号',
-          mergeLater: '上海市普陀区金沙江路 1518 弄',
-          date : '2018-09-30 14:16',
-        }, {
-          number: '9',
-          mergeBefore: '烟酒宿舍市庄路296号',
-          mergeLater: '上海市普陀区金沙江路 1518 弄',
-          date : '2018-09-30 14:16',
-        }, {
-          number: '10',
-          mergeBefore: '烟酒宿舍市庄路296号',
-          mergeLater: '上海市普陀区金沙江路 1518 弄',
-          date : '2018-09-30 14:16',
-        }]
+       tableData: [],
       };
     },
 
@@ -171,11 +120,23 @@
       TableSreach,
     },
 
-    computed: {},
+    computed: {
+      loading(){
+        console.log(this.tableData);
+        return this.tableData.length > 0 ? false : true
+      }
+    },
 
     beforeMount() {},
 
-    mounted() {},
+    mounted() {
+      post('/api/real/mergeRecordList').then(res=>{
+        if(res.code == 1){
+          console.log(res.data);
+          this.tableData = res.data.list
+        }
+      })
+    },
 
     methods: {
       handleSizeChange(){},

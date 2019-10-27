@@ -15,7 +15,10 @@ export default {
         sex = sex + '我在actions这个地方改变了info'
         context.commit('CHANGE_INFO_SEX',sex)
     },
-    setRouter(context,newRouter){
+    setNewRouter(context,newRouter){
         context.commit('SET_NEWROUTER',newRouter)
     },
+    setRouter(context,router){
+        context.commit('SET_ROUTER',router);
+    }
 }

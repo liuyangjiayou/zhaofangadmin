@@ -3,7 +3,8 @@ import {
     CHANGE_NUMBER,
     CHANGE_INFO,
     CHANGE_INFO_SEX,
-    SET_NEWROUTER
+    SET_NEWROUTER,
+    SET_ROUTER
 } from '../mutationsType/mutations-type';
 
 export default {
@@ -20,7 +21,9 @@ export default {
         state.info.sex = sex
     },
     [SET_NEWROUTER](state,newRouter){
-        console.log(newRouter);
         state.newRouter = newRouter
+    },
+    [SET_ROUTER](state,router){
+        state.roles = router;
     }
 }

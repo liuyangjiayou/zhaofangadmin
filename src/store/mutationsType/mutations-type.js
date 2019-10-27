@@ -3,3 +3,4 @@ export const CHANGE_COUNT = 'CHANGE_COUNT'; //修改count
 export const CHANGE_NUMBER = 'CHANGE_NUMBER'; //修改number
 export const CHANGE_INFO = 'CHANGE_INFO'; //修改info
 export const CHANGE_INFO_SEX = 'CHANGE_INFO_SEX'; //修改info
+export const SET_ROUTER = 'SET_ROUTER'; //设置后台给的路由

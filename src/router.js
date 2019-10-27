@@ -368,8 +368,7 @@ let initRouter = [
     ]
   }
 ];
-
-let aa = cc(initRouter,routerArr);
+let newRouter = cc(initRouter,routerArr);
 function cc(router1,router2){
   let arr = [];
   router1.forEach((item1,index1) => {
@@ -390,7 +389,7 @@ function cc(router1,router2){
   });
   return arr;
 }
-
+store.commit('SET_NEWROUTER',newRouter);
 
 let router =  new Router({
   mode: 'history',
@@ -400,7 +399,7 @@ let router =  new Router({
       path: '/home',
       name: 'home',
       component: Home,
-      children : initRouter
+      children : newRouter
     },
     {
       path: '/login',

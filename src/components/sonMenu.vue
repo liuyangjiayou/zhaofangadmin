@@ -1,15 +1,13 @@
 <template>
 <!-- 我是二级导航组件 -->
   <div class="warp">
-    <p class="title">物业管理</p>
+    <p class="title">{{title}}</p>
     <div class="">
       <el-menu
         :router="true"
         :default-active="$route.path"
       >
-          <el-menu-item index="/home/real/mergeRecord">合并记录</el-menu-item>
-          <el-menu-item index="/home/real/unmatchReal">未匹配物业</el-menu-item>
-          <el-menu-item index="/home/real/matchReal">已匹配物业</el-menu-item>
+          <el-menu-item v-for="(item,i) in route" :key="i" :index="item.path">{{item.meta.name}}</el-menu-item>
       </el-menu>
     </div>
 </div>
@@ -19,7 +17,10 @@
 
   export default {
     name:'',
-    props:[''],
+    props:{
+      title : '',
+      route : '',
+    },
     data () {
       return {
 

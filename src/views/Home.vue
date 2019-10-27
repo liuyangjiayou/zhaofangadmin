@@ -16,11 +16,12 @@
         background-color="#0f1625"
         text-color="#fff"
         border-color="#0f1625"
-        :router="true"
         :default-active="$route.path"
       >
-          <el-menu-item index="/home">总览</el-menu-item>
-          <el-menu-item index="/home/real">物业管理</el-menu-item>
+          <el-menu-item v-for="(item,i) in roter" :key="i">
+            <router-link :key="i" :to="{path : item.path,query : {title : item.meta.name}}">{{item.meta.name}}</router-link>
+          </el-menu-item>
+          <!-- <el-menu-item index="/home/real">物业管理</el-menu-item>
           <el-menu-item index="/home/adver">广告管理</el-menu-item>
           <el-menu-item index="/home/consult">咨讯管理</el-menu-item>
           <el-menu-item index="/home/decoration">家装管理</el-menu-item>
@@ -29,7 +30,7 @@
           <el-menu-item index="/home/newhouse">新房管理</el-menu-item>
           <el-menu-item index="/home/house">房源管理</el-menu-item>
           <el-menu-item index="/home/houseStore">房源库</el-menu-item>
-          <el-menu-item index="/home/frenid">友情链接</el-menu-item>
+          <el-menu-item index="/home/frenid">友情链接</el-menu-item> -->
         </el-menu>
       <div class="footer">
         <span>找房子就上找房网</span>
@@ -40,7 +41,9 @@
 </template>
 
 <script>
-  import { post } from '../api/api' 
+  import { post } from '../api/api';
+  import { mapState }  from 'vuex'
+import { stat } from 'fs';
   export default {
     name:'',
     props:[''],
@@ -52,7 +55,11 @@
     components: {
     },
 
-    computed: {},
+    computed: {
+      ...mapState({
+        roter : state => state.newRouter
+      })
+    },
 
     beforeMount() {},
     created(){
