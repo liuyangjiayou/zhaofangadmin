@@ -19,10 +19,8 @@
           </el-table-column>
           <el-table-column 
            width="55"
+          type="index"
           label="编号">
-            <template slot-scope="scope">
-              <span>{{ scope.row.number}}</span>
-            </template>
           </el-table-column>
           <el-table-column 
           label="合并前名称">
@@ -46,7 +44,7 @@
           width="150"
           label="操作">
               <template slot-scope="scope">
-                  <el-button type="text" @click="tabelConfirm({id : scope.row.number,msg : '确定要删除这一项吗？',title : '删除'})">删除</el-button>
+                  <el-button type="text" @click="del({id : scope.row.number,title : scope.row.mergeBefore})">删除</el-button>
                   <el-button type="text" @click="tabelConfirm({id : scope.row.number,msg : '确定要还原这一项吗？',title : '还原'})">还原</el-button>
               </template>
           </el-table-column>
@@ -130,15 +128,38 @@
     beforeMount() {},
 
     mounted() {
-      post('/api/real/mergeRecordList').then(res=>{
-        if(res.code == 1){
-          console.log(res.data);
-          this.tableData = res.data.list
-        }
-      })
+      this.getData();
     },
 
     methods: {
+      del(opts){
+        this.$confirm(`你确定要删除${opts.title}吗？`,'删除',{
+          confirmButtonText : '确定',
+          cancelButtonText : '取消',
+          type : 'warning'
+        }).then(()=>{
+            post('/api/real/removeMergeRecordList',{id : opts.id}).then(res=>{
+              this.$message({
+                type : res.code == 1 ? 'success' : 'error',
+                message : res.msg,
+                onClose : ()=>{
+                  this.getData();
+                }
+              })
+            });
+        }).catch(()=>{
+
+        })
+        
+      },
+      getData(){
+        post('/api/real/mergeRecordList').then(res=>{
+          if(res.code == 1){
+            console.log(res.data);
+            this.tableData = res.data.list
+          }
+        })
+      },
       handleSizeChange(){},
       handleCurrentChange(){}
     },

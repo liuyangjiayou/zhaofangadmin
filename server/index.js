@@ -65,6 +65,29 @@ app.post('/api/real/mergeRecordList',function(req,res){
             data,
         })
     })
+});
+/* 删除合并记录的某一条 */
+app.post('/api/real/removeMergeRecordList',function(req,res){
+    readFile('./dataFile/realData/real_mergeRecord.json').then(data=>{
+        data = JSON.parse(data);
+        let result = data.list.find(item=>{
+            return item.number == req.body.id   
+        });
+        if(result){
+            data.list = data.list.filter(item=>item.number != req.body.id);
+            writeFile('./dataFile/realData/real_mergeRecord.json',data).then(()=>{
+                res.send({
+                    code : 1,
+                    msg : '删除成功'
+                });
+            });
+        }else{
+            res.send({
+                code : 0,
+                msg : '删除失败，没有查询到此条数据~'
+            });
+        }
+    })
 })
 
 
